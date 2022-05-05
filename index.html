@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quote Generator</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="quote-container">
+      <!-- Quote -->
+      <div class="quote-container__text-container">
+        <i class="quote-container__quote-icon fas fa-quote-left"></i>
+        <span class="quote-container__quote">
+          What you are is what you have been. What you'll be is what you do now.
+        </span>
+      </div>
+      <!-- Author -->
+      <div class="quote-container__author-container">
+        <span class="quote-container__author">Buddha</span>
+      </div>
+      <!-- Buttons -->
+      <div class="buttons-container">
+        <button class="buttons-container__btn" title="Tweet This!">
+          <i class="buttons-container__twitter fab fa-twitter"></i>
+        </button>
+        <button class="buttons-container__new-quote">New Quote</button>
+      </div>
+    </div>
     <!-- Script -->
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
