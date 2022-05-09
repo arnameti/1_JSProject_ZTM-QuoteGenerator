@@ -1,63 +1,76 @@
-"use strict";
+'use strict';
 
-const quoteContainer = document.querySelector(".quote-container");
-const quoteText = document.querySelector(".quote-container__quote");
-const author = document.querySelector(".quote-container__author");
+const quoteContainer = document.querySelector('.quote-container');
+const quoteText = document.querySelector('.quote-container__quote');
+const author = document.querySelector('.quote-container__author');
 
-const twitterBtn = document.querySelector(".buttons-container__twitter-btn");
-const newQuoteBtn = document.querySelector(".buttons-container__new-quote-btn");
+const twitterBtn = document.querySelector('.buttons-container__twitter-btn');
+const newQuoteBtn = document.querySelector('.buttons-container__new-quote-btn');
 
-const loader = document.querySelector(".loader");
+const loader = document.querySelector('.loader');
 
-// Show Loading
-const loading = () => {
+const showLoadingSpinner = () => {
   loader.hidden = false;
   quoteContainer.hidden = true;
 };
 
-// Hide Loading
-const complete = () => {
+const removeLoadingSpinner = () => {
   quoteContainer.hidden = false;
   loader.hidden = true;
 };
 
 let apiQuotes = [];
 
-// Show new quote
+// Get Quotes from API
+const getQuotes = async function () {
+  showLoadingSpinner();
+  const apiUrl = 'https://type.fit/api/quotes';
+  try {
+    const response = await fetch(apiUrl);
+    apiQuotes = await response.json();
+    newQuote();
+  } catch (error) {
+    console.error(`Something went wrong: ${error}`);
+  }
+};
+
+// const getQuotes2 = function () {
+//   showLoadingSpinner();
+
+//   const apiUrl = 'https://type.fit/api/quotes';
+//   fetch(apiUrl)
+//     .then(res => res.json())
+//     .then(data => {
+//       apiQuotes = data;
+//       newQuote();
+//     })
+//     .catch(err => console.error(`Something went wrong: ${err}`));
+// };
+
+// Get random Quote from apiQuotes Array
 const newQuote = () => {
-  loading();
+  showLoadingSpinner();
   const getRandomInt = (min, max) =>
     Math.floor(Math.random() * (max - min + 1)) + min;
 
   const quote = apiQuotes[getRandomInt(0, apiQuotes.length - 1)];
 
-  author.textContent = quote.author ? quote.author : "Author not known";
+  author.textContent = quote.author ? quote.author : 'Author not known';
 
-  if (quote.text.length > 120) quoteText.classList.toggle("long-quote");
+  if (quote.text.length > 120) quoteText.classList.toggle('long-quote');
   quoteText.textContent = quote.text;
-  complete();
-};
-
-// Get Quotes from API
-const getQuotes = async function () {
-  loading();
-  const apiUrl = "https://type.fit/api/quotes";
-  try {
-    const response = await fetch(apiUrl);
-    apiQuotes = await response.json();
-    newQuote();
-  } catch (error) {}
+  removeLoadingSpinner();
 };
 
 // Twee Quote
 const tweetQuote = () => {
   const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${author.textContent}`;
-  window.open(twitterUrl, "_blank");
+  window.open(twitterUrl, '_blank');
 };
 
 // Event Listeners
-newQuoteBtn.addEventListener("click", newQuote);
-twitterBtn.addEventListener("click", tweetQuote);
+newQuoteBtn.addEventListener('click', newQuote);
+twitterBtn.addEventListener('click', tweetQuote);
 
 // On Load
 getQuotes();
